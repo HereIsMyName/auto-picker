@@ -76,15 +76,15 @@ class CarAdder extends Component {
               <br />
               {
                 this.state.errMsg && !this.state.hasSubmitted ?
-              <Message warning compact>
-                <Message.Header align='center'>
-                  You have not selected any cars
-                </Message.Header>
-                <p>
-                  Check out the cars page to see your choices
-                </p>
-              </Message>
-              : null
+                  <Message warning compact>
+                    <Message.Header align='center'>
+                      You have not selected any cars
+                    </Message.Header>
+                    <p>
+                      Check out the cars page to see your choices
+                    </p>
+                  </Message>
+                : null
               }
               {
                 this.state.hasSubmitted ?
@@ -97,7 +97,7 @@ class CarAdder extends Component {
                 : null
               }
             </div>
-            : null
+          : <p>Sign in to add cars to your account</p>
         }
         <br />
         {carList}
