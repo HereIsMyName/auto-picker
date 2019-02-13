@@ -1,4 +1,4 @@
 module.exports = {
   env: 'production',
-  db: process.env.MONGO_URI
+  db: process.env.MONGODB_URI
 };
