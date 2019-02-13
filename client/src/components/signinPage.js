@@ -5,10 +5,6 @@ import SigninForm from './forms/signinForm';
 
 class SigninPage extends Component {
 
-    // submit = (e, p) => {
-    //     this.props.addUsers(e, p);
-    // }
-
     render() {
         const token = localStorage.getItem('WEB_TOKEN')
         return (

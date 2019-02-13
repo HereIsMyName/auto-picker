@@ -6,7 +6,7 @@ import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import * as actions from '../../actions/index'
-import FormError from "./form-error.js";
+import FormError from "./form-error";
 
 
 class SigninForm extends Component {
@@ -36,7 +36,7 @@ class SigninForm extends Component {
     const check = this.validate(username, password)
     
     this.clearError();
-    this.setState({ check })
+    this.setState({ error: check })
 
     if (Object.keys(check).length === 0) {
       await this.props.signIn(userInput)
@@ -63,17 +63,17 @@ class SigninForm extends Component {
   }
   
   clearError() {
-    const errclr = this.state;
-    errclr.error = {};
-    this.setState({errclr});
+    this.setState({error: {}});
   }
 
   render() {
     const { authData, handleSubmit } = this.props
+    const { error } = this.state
+    console.log(this.state)
     return (
       <div>
         <Form onSubmit={handleSubmit(this.onSubmit)}>
-          <Form.Field error={!!this.state.error.username}>
+          <Form.Field error={error.username}>
             <label htmlFor="username">Username</label>
             <Field 
               type="text"
@@ -83,10 +83,9 @@ class SigninForm extends Component {
               placeholder="Enter username"
               component="input"
             />
-            {this.state.error.username && <FormError text={this.state.error.username} />}
+            {error.username && <FormError text={error.username} />}
           </Form.Field>
-          <br />
-          <Form.Field error={!!this.state.error.username}>
+          <Form.Field error={this.state.error.password}>
             <label htmlFor="password">Password</label>
             <Field 
               type="password"
@@ -96,16 +95,17 @@ class SigninForm extends Component {
               placeholder="Enter password"
               component="input"
             />
-            {this.state.error.password && <FormError text={this.state.error.password} />}
+            {error.password && <FormError text={error.password} />}
           </Form.Field>
-          <Button primary>Submit</Button>
+          <Button primary fluid>Submit</Button>
           <br />
           <br />
           <span>New User?</span>
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/signup"> Sign Up</Link>
           <br />
           <br />
           { 
+            // Sets an error if username / password finds no match 
             authData.error ?
             <span className="ui red message">{authData.error}</span>
               : null
