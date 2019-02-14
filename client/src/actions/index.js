@@ -6,11 +6,11 @@ import {
   ACCESS_RESOURCE, 
   AUTH_ERROR, 
   CLEAR_ERROR,
-  DELETE_ALL_CARS,
-  REMOVE_CAR_DB,
-  REMOVE_ALL_CARS_DB,
+  DELETE_CAR_DB,
+  DELETE_ALL_CARS_DB,
   ADD_CAR, 
-  DELETE_CAR 
+  REMOVE_CAR,
+  REMOVE_ALL_CARS
 } from './types'
 
 
@@ -151,8 +151,10 @@ export const submitCars = (data) => {
   return async dispatch => { 
     try {
       await axios.put('http://localhost:5000/addcar', data)
+
+      // Cars are removed from store when added to account
       dispatch({
-        type: DELETE_ALL_CARS,
+        type: REMOVE_ALL_CARS,
         payload: []
       }) 
     }
@@ -164,12 +166,12 @@ export const submitCars = (data) => {
 
 
 // Deletes selected car from user's account
-export const removeCar = (data) => {
+export const deleteCar = (data) => {
   return async dispatch => { 
     try {
-      await axios.delete('http://localhost:5000/removeCar', {data})
+      await axios.delete('http://localhost:5000/deleteCar', {data})
       dispatch({
-        type: REMOVE_CAR_DB,
+        type: DELETE_CAR_DB,
         payload: data
       }) 
     }
@@ -186,7 +188,7 @@ export const deleteAllCars = () => {
     try {
       await axios.delete('http://localhost:5000/deleteAllCars')
       dispatch({
-        type: REMOVE_ALL_CARS_DB
+        type: DELETE_ALL_CARS_DB
       }) 
     }
     catch(err) {
@@ -207,12 +209,22 @@ export const addCar = (model) => {
 }
 
 
-// Remove cars from store
-export const deleteCar = (model) => {
+// Remove selected car from store
+export const removeCar = (model) => {
   return dispatch => { 
     dispatch({
-      type: DELETE_CAR, 
+      type: REMOVE_CAR, 
       model
+    }) 
+  }
+}
+
+// Removes all cars from store
+export const removeAllCars = (model) => {
+  return dispatch => { 
+    dispatch({
+      type: REMOVE_ALL_CARS,
+      payload: []
     }) 
   }
 }

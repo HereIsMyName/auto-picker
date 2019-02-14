@@ -1,8 +1,8 @@
 import { 
   ACCESS_RESOURCE, 
-  REMOVE_CAR_DB, 
   SIGN_OUT,
-  REMOVE_ALL_CARS_DB 
+  DELETE_CAR_DB, 
+  DELETE_ALL_CARS_DB 
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -15,7 +15,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
     return { ...state, userCars: action.payload.cars, userName: action.payload.name }
   }
 
-  if(action.type === REMOVE_CAR_DB){
+  if(action.type === DELETE_CAR_DB){
     let newList = state.userCars.filter(car => {
       return action.payload !== car
     })
@@ -24,7 +24,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
     }
   }
 
-  if(action.type === REMOVE_ALL_CARS_DB){
+  if(action.type === DELETE_ALL_CARS_DB){
     return { ...state, userCars: []}
   }
 

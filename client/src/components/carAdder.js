@@ -3,26 +3,35 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { Message } from 'semantic-ui-react'
+import { Message, Button, Modal } from 'semantic-ui-react'
 import * as actions from './../actions/index'
 
 class CarAdder extends Component {
   state= {
     hasSubmitted: false,
     carLength: 0,
-    errMsg: ''
+    errMsg: '',
+    open: false
   }
 
-  deleteCar = (model) => {
-    this.props.deleteCar(model)
+  show = () => () => this.setState({ open: true })
+  close = () => this.setState({ open: false })
+
+  removeCar = (model) => {
+    this.props.removeCar(model)
+  }
+
+  removeAllCars = () => {
+    this.close()
+    this.props.removeAllCars()
   }
 
   addCars = (cars, token) => {
     if(!this.props.cars.length) {
       this.setState({errMsg: 'No cars to add'})
     }
-
-    else if(this.props.cars.length) {
+    else {
+      // State is saved to display # of cars saved to db after removal from state
       (()=>{
           this.setState({
           carLength: this.props.cars.length
@@ -35,6 +44,7 @@ class CarAdder extends Component {
         hasSubmitted: true,
         errMsg: ''
       })
+      // Resource retrieved to update info
       this.props.getResource()
     }
   }
@@ -42,8 +52,9 @@ class CarAdder extends Component {
   
   render() {
     const { cars } = this.props
-    const { carLength } = this.state
+    const { carLength, open, close } = this.state
     const token = localStorage.getItem('WEB_TOKEN')
+
     const carList = this.props.cars.length ? (
       cars.map(car => {
         return (
@@ -53,7 +64,7 @@ class CarAdder extends Component {
             <span>class: {car.carClass}</span>
             <img src={require(`../images/${car.carClass}.jpeg`)} alt={car.carClass}/>
             <br />
-            <button onClick={() => this.deleteCar(car.model)}>Remove</button>
+            <button onClick={() => this.removeCar(car.model)}>Remove</button>
           </div>
         )
       })
@@ -75,6 +86,7 @@ class CarAdder extends Component {
               <button onClick={() => this.addCars(cars, token)}>Save Cars</button>
               <br />
               {
+                // Cars must be saved to state in order to add to db
                 this.state.errMsg && !this.state.hasSubmitted ?
                   <Message warning compact>
                     <Message.Header align='center'>
@@ -87,6 +99,7 @@ class CarAdder extends Component {
                 : null
               }
               {
+                // Message shown when car data submitted to db
                 this.state.hasSubmitted ?
                 <Message positive compact>
                   <Message.Header align='center'>
@@ -99,6 +112,23 @@ class CarAdder extends Component {
             </div>
           : <p>Sign in to add cars to your account</p>
         }
+        <br />
+        <Modal size='mini' open={open} onClose={close}>
+          <Modal.Header>Remove all cars</Modal.Header>
+          <Modal.Content>
+            <p>This will remove all cars selected</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button negative onClick={this.close}>No</Button>
+            <Button 
+              positive
+              content='Yes' 
+              onClick={this.removeAllCars} 
+            />
+          </Modal.Actions>
+        </Modal>
+        <Button disabled={!cars.length ? true : null} basic color='black' onClick={this.show()}> Remove All</Button>
+        <br />
         <br />
         {carList}
         </div>

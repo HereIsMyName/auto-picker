@@ -1,13 +1,14 @@
 import { 
-  DELETE_ALL_CARS,
   ADD_CAR, 
-  DELETE_CAR 
+  REMOVE_CAR,
+  REMOVE_ALL_CARS
 } from '../actions/types'
 
 const INITIAL_STATE = {
   models: []
 }
 
+// Car reducer handles locally stored cars, not on db
 const carReducer = (state = INITIAL_STATE, action) => {
   if(action.type === ADD_CAR) {
     let list = state.models.filter(car => {
@@ -18,7 +19,7 @@ const carReducer = (state = INITIAL_STATE, action) => {
     }
   }
 
-  else if(action.type === DELETE_CAR) {
+  else if(action.type === REMOVE_CAR) {
     let newList = state.models.filter(car => {
       return action.model !== car.model 
     })
@@ -27,7 +28,7 @@ const carReducer = (state = INITIAL_STATE, action) => {
     }
   }
 
-  else if(action.type === DELETE_ALL_CARS) {
+  else if(action.type === REMOVE_ALL_CARS) {
     return {
       models: action.payload
     }

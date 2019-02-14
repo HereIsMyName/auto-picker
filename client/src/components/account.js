@@ -29,21 +29,21 @@ class Account extends Component {
     }
   })
 
-  deleteCar = model => {
-    this.props.removeCar(model)
+  handleChange = (event) => {
+    this.setState({password: event.target.value})
   }
 
-  removeAllCars = () => {
+  deleteCar = model => {
+    this.props.deleteCar(model)
+  }
+
+  deleteAllCars = () => {
     this.close()
     this.props.deleteAllCars()
   }
 
   signOut = () => {
     this.props.signOut()
-  }
-
-  handleChange = (event) => {
-    this.setState({password: event.target.value})
   }
 
   deleteUser = () => {
@@ -118,15 +118,15 @@ class Account extends Component {
               <Modal size='mini' open={delCars.open} onClose={this.close}>
                 <Modal.Header>Delete all your cars</Modal.Header>
                 <Modal.Content>
-                  <p>This will remove all cars from your account</p>
+                  <p>This will delete all cars from your account</p>
                 </Modal.Content>
                 <Modal.Actions>
+                  <Button negative onClick={this.close}>No</Button>
                   <Button 
                     positive
                     content='Yes' 
-                    onClick={this.removeAllCars} 
+                    onClick={this.deleteAllCars} 
                   />
-                  <Button negative onClick={this.close}>No</Button>
                 </Modal.Actions>
               </Modal>
               
@@ -153,25 +153,21 @@ class Account extends Component {
                 }
                 </Modal.Content>
                 <Modal.Actions>
+                  <Button type='submit' negative onClick={this.close}>cancel</Button>
                   <Button 
                     positive
                     content='delete' 
                     onClick={this.deleteUser} 
                     form='delForm'
                   />
-                  <Button type='submit' negative onClick={this.close}>cancel</Button>
                 </Modal.Actions>
                 
               </Modal>
             </div>
           
             <h3>{this.props.userInfo.userCars.length} cars saved</h3> 
-            {/* Delete all cars button shows only if cars in users account */}
-              {
-                userCars.length ?
-                <Button basic color='red' onClick={this.show('delCars')}>Delete All Cars</Button>
-                : null
-              }
+
+                <Button disabled={!userCars.length ? true : null} basic color='red' onClick={this.show('delCars')}>Delete All Cars</Button>
               <br />
               <br />
               {carList}

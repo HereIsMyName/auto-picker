@@ -1,2 +1,6 @@
-const env = process.env.NODE_ENV;
-module.exports  = require(`../${env}`);
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('../production');
+} else {
+  module.exports = require('../development');
+}
+

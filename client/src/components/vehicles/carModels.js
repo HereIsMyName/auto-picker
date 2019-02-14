@@ -31,7 +31,7 @@ class CarModels extends Component {
             this.props.addCar(model);
         }
         else {
-            this.props.deleteCar(obj[0].model)
+            this.props.removeCar(obj[0].model)
         }
     }
 

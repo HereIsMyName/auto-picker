@@ -26,7 +26,7 @@ app.use(passport.initialize());
 app.use(require('./routes/car_api'))
 app.use(require('./routes/user_api'))
 
-// Production 
+// Production setup 
 if(config.env === 'production') {
   app.use(express.static('client/build'))
 
@@ -40,6 +40,7 @@ if(config.env === 'production') {
 app.use((err, req, res, next) => {
   res.status(422).send({error: err.message})
 })
+
 
 const port = process.env.PORT || 5000
 app.listen(port, () => {

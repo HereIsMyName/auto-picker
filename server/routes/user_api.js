@@ -116,8 +116,8 @@ router.put('/addcar',
   }
 )
 
-// Remove individual cars from users account
-router.delete('/removeCar',
+// Delete individual cars from users account
+router.delete('/deleteCar',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
 
@@ -134,7 +134,7 @@ router.delete('/removeCar',
   }
 )
 
-// Remove all cars from users account
+// Delete all cars from users account
 router.delete('/deleteAllCars',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
