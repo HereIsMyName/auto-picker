@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Loader, Button } from 'semantic-ui-react'
 import Bread3 from '../../components/bread3';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index'
@@ -6,7 +7,8 @@ import * as actions from '../../actions/index'
 class CarModels extends Component {
     state= {
         models:[{}],
-        notLoaded: false
+        notLoaded: false,
+        dberror: ''
     }
 
     componentDidMount() {
@@ -20,6 +22,11 @@ class CarModels extends Component {
                     this.setState({ models: models.data })
                 }
                 else this.setState({notLoaded: true})
+            })
+            .catch(err => {
+                this.setState({
+                    dberror: err
+                })
             })
     }
 
@@ -49,24 +56,24 @@ class CarModels extends Component {
                     
                     // Checks if cars are saved to user's account and won't show if so
                     !dbMatch ?
-                        <div key={carModel.model}>
-                            <p>{carModel.model} <button className={cName} onClick={() => this.handleClick(carModel)}>{cName? 'Remove' : 'Add Car'}</button></p>
+                        <div  key={carModel.model}>
+                            <p>{carModel.model} <Button basic color={!cName ? 'black' : 'red'} size='mini' className={cName} onClick={() => this.handleClick(carModel)}>{cName? 'Remove' : 'Add Car'}</Button></p>
                         </div>
                     : null
                 )
             })
-        ) : <h3 style={{whiteSpace: 'nowrap', margin: '0 auto'}}>Loading</h3>
+        ) :  <Loader active inline='centered' content='Loading Cars'/>
             
         return (
             <div>
                 <Bread3 title={carModel} />
                 {
-                   !this.state.notLoaded ?
+                   !this.state.dberror ?
                     <div>
                         <div className ='modelBody'>
                         {
                             models.length !== res.length ?
-                            <div>
+                            <div id='modelList' >
                                 <h2>{carModel}</h2>
                                 <h3>Select desired vehicles</h3>
                                 {modelList}
@@ -75,7 +82,7 @@ class CarModels extends Component {
                         }
                         </div> 
                     </div>
-                    : <h2>Nothing found</h2>
+                    : <h2>Could not retrieve data</h2>
                 }
             </div>
         );

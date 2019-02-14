@@ -146,6 +146,9 @@ a[href]:hover {
   margin-top: 10px;
   padding: 10px;
   border-radius: 6px;
+  content: '';
+  display: table;
+  clear: both;
 }
 
 .infoBody {
@@ -153,9 +156,6 @@ a[href]:hover {
   padding: 10px 30px;
   min-height: 450px;
   width: 90%;
-  content: '';
-  display: table;
-  clear: both;
   text-align: center;
 
   h4 {
@@ -175,15 +175,20 @@ a[href]:hover {
 }
 
 .modelBody {
+  width: 100%;
   margin-bottom: 0;
   padding-bottom: 25px;
 
-  div {
+  #modelList  {
     padding: 1px 0;
     margin: 0 auto;
     width: 260px;
+    min-width: 11%;
   }
 
+  div {
+  clear: both;
+  }
   p {
     margin: 8px;
     margin-left: 10px;
@@ -196,20 +201,20 @@ a[href]:hover {
 
   button {
     float: right; 
-    margin-left: 7px;
+    // margin-left: 7px;
     padding: 1px 10px;
     border-radius: 5px;
-    min-width: 70px;
+    // min-width: 70px;
     font-size: .9em;
     font-weight: bold;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     background-color: rgb(219, 219, 219);
   }
 
-  button:not(.picked):hover {
-    background-color: rgb(241, 238, 238) !important;
-    cursor: pointer
-  }
+  // button:not(.picked):hover {
+  //   background-color: rgb(241, 238, 238) !important;
+  //   cursor: pointer
+  // }
 }
 
 h1, h2, h3, h4 {
