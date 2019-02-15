@@ -18,7 +18,7 @@ export const signUp = data => {
   
   return async dispatch => {
     try {
-      const res = await axios.post('/server/routes/user_api/signup', data)
+      const res = await axios.post('/signup', data)
 
       dispatch({
         type: SIGN_UP,
@@ -40,7 +40,7 @@ export const signIn = data => {
   
   return async dispatch => {
     try {
-      const res = await axios.post('/server/routes/user_api/signin', data)
+      const res = await axios.post('/signin', data)
 
       dispatch({
         type: SIGN_IN,
@@ -64,7 +64,7 @@ export const getCars = (carModel) => {
 
   return async dispatch => {
     try {
-      return await axios.get(`/server/routes/user_api/${carModel}`)
+      return await axios.get(`/cars/${carModel}`)
     }
     catch(err) {
       console.error('error ', err)
@@ -78,7 +78,7 @@ export const getResource = () => {
 
   return async dispatch => {
     try {
-      const res = await axios.get('/server/routes/user_api/secret')
+      const res = await axios.get('/secret')
       dispatch({
         type: ACCESS_RESOURCE,
         payload: res.data
@@ -107,7 +107,7 @@ export const deleteAccount = (data) => {
 
   return async dispatch => {
     try {
-      const res = await axios.delete('/server/routes/user_api/deleteAccount', {data})
+      const res = await axios.delete('/deleteAccount', {data})
       localStorage.removeItem('WEB_TOKEN')
       dispatch({
         type: SIGN_OUT,
@@ -137,7 +137,7 @@ export const clearError = () => {
 export const submitCars = (data) => {
   return async dispatch => { 
     try {
-      await axios.put('/server/routes/user_api/addcar', data)
+      await axios.put('/addcar', data)
 
       // Cars are removed from store when added to account
       dispatch({
@@ -156,7 +156,7 @@ export const submitCars = (data) => {
 export const deleteCar = (data) => {
   return async dispatch => { 
     try {
-      await axios.delete('/server/routes/user_api/deleteCar', {data})
+      await axios.delete('/deleteCar', {data})
       dispatch({
         type: DELETE_CAR_DB,
         payload: data
@@ -173,7 +173,7 @@ export const deleteCar = (data) => {
 export const deleteAllCars = () => {
   return async dispatch => { 
     try {
-      await axios.delete('/server/routes/user_api/deleteAllCars')
+      await axios.delete('/deleteAllCars')
       dispatch({
         type: DELETE_ALL_CARS_DB
       }) 
@@ -189,7 +189,7 @@ export const getPopupCars = (carModel) => {
 
   return async dispatch => {
     try {
-      return await axios.get('/server/routes/car_api/car-finder')
+      return await axios.get('/car-finder')
     }
     catch(err) {
       console.error('error ', err)
