@@ -18,7 +18,7 @@ export const signUp = data => {
   
   return async dispatch => {
     try {
-      const res = await axios.post('http://localhost:5000/signup', data)
+      const res = await axios.post('server/routes/user_api/signup', data)
 
       dispatch({
         type: SIGN_UP,
@@ -40,7 +40,7 @@ export const signIn = data => {
   
   return async dispatch => {
     try {
-      const res = await axios.post('http://localhost:5000/signin', data)
+      const res = await axios.post('server/routes/user_api/signin', data)
 
       dispatch({
         type: SIGN_IN,
@@ -64,20 +64,7 @@ export const getCars = (carModel) => {
 
   return async dispatch => {
     try {
-      return await axios.get(`http://localhost:5000/cars/${carModel}`, {headers: {'Content-Type': 'application/json'}})
-    }
-    catch(err) {
-      console.error('error ', err)
-    }
-  }
-}
-
-// Gets car categories for popup
-export const getPopupCars = (carModel) => {
-
-  return async dispatch => {
-    try {
-      return await axios.get('http://localhost:5000/car-finder')
+      return await axios.get(`server/routes/user_api/${carModel}`)
     }
     catch(err) {
       console.error('error ', err)
@@ -91,7 +78,7 @@ export const getResource = () => {
 
   return async dispatch => {
     try {
-      const res = await axios.get('http://localhost:5000/secret')
+      const res = await axios.get('server/routes/user_api/secret')
       dispatch({
         type: ACCESS_RESOURCE,
         payload: res.data
@@ -120,7 +107,7 @@ export const deleteAccount = (data) => {
 
   return async dispatch => {
     try {
-      const res = await axios.delete('http://localhost:5000/deleteAccount', {data})
+      const res = await axios.delete('server/routes/user_api/deleteAccount', {data})
       localStorage.removeItem('WEB_TOKEN')
       dispatch({
         type: SIGN_OUT,
@@ -150,7 +137,7 @@ export const clearError = () => {
 export const submitCars = (data) => {
   return async dispatch => { 
     try {
-      await axios.put('http://localhost:5000/addcar', data)
+      await axios.put('server/routes/user_api/addcar', data)
 
       // Cars are removed from store when added to account
       dispatch({
@@ -169,7 +156,7 @@ export const submitCars = (data) => {
 export const deleteCar = (data) => {
   return async dispatch => { 
     try {
-      await axios.delete('http://localhost:5000/deleteCar', {data})
+      await axios.delete('server/routes/user_api/deleteCar', {data})
       dispatch({
         type: DELETE_CAR_DB,
         payload: data
@@ -186,7 +173,7 @@ export const deleteCar = (data) => {
 export const deleteAllCars = () => {
   return async dispatch => { 
     try {
-      await axios.delete('http://localhost:5000/deleteAllCars')
+      await axios.delete('server/routes/user_api/deleteAllCars')
       dispatch({
         type: DELETE_ALL_CARS_DB
       }) 
@@ -194,6 +181,19 @@ export const deleteAllCars = () => {
     catch(err) {
       console.error('error ', err)
     } 
+  }
+}
+
+// Gets car categories for popup
+export const getPopupCars = (carModel) => {
+
+  return async dispatch => {
+    try {
+      return await axios.get('server/routes/car_api/car-finder')
+    }
+    catch(err) {
+      console.error('error ', err)
+    }
   }
 }
 
