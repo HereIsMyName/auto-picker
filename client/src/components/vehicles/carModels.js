@@ -52,17 +52,16 @@ class CarModels extends Component {
             let dbMatch = res.find(dbcar => dbcar.model === carModel.model)
             let cName = cars.find(cars => cars.model === carModel.model) ? 'picked': ''
                 
-                return (
-                    
-                    // Checks if cars are saved to user's account and won't show if so
-                    !dbMatch ?
-                        <div  key={carModel.model}>
-                            <p>{carModel.model} <Button basic color={!cName ? 'black' : 'red'} size='mini' className={cName} onClick={() => this.handleClick(carModel)}>{cName? 'Remove' : 'Add Car'}</Button></p>
-                        </div>
-                    : null
-                )
-            })
-        ) :  <Loader active inline='centered' content='Loading Cars'/>
+            return (
+                
+                // Checks if cars are saved to user's account and won't show if so
+                !dbMatch ?
+                    <div  key={carModel.model}>
+                        <p>{carModel.model} <Button basic color={!cName ? 'black' : 'red'} size='mini' className={cName} onClick={() => this.handleClick(carModel)}>{cName? 'Remove' : 'Add Car'}</Button></p>
+                    </div>
+                : null
+            )
+        })) : <Loader active inline='centered' content='Loading Cars'/>
             
         return (
             <div>
@@ -71,15 +70,11 @@ class CarModels extends Component {
                    !this.state.dberror ?
                     <div>
                         <div className ='modelBody'>
-                        {
-                            models.length !== res.length ?
                             <div id='modelList' >
                                 <h2>{carModel}</h2>
                                 <h3>Select desired vehicles</h3>
                                 {modelList}
                             </div>
-                        : <h2>No cars left to add</h2>
-                        }
                         </div> 
                     </div>
                     : <h2>Could not retrieve data</h2>

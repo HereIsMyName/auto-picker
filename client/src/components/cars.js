@@ -16,7 +16,7 @@ import classic from '../images/classics.jpeg';
 const Cars = () => {
   return (
     <div className='groupItem'>
-      <Breadcrumb size='large' id='bread'>
+      <Breadcrumb size='large'>
       <Link to=''>
         <Breadcrumb.Section>Home</Breadcrumb.Section>
       </Link>

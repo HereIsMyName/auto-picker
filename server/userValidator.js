@@ -14,7 +14,7 @@ module.exports = {
   },
   userInputSchema: {
     authorize: Joi.object().keys({
-      username: Joi.string().alphanum().min(6).max(20).required(),
+      username: Joi.string().alphanum().min(6).max(30).required(),
       password: Joi.string().min(6).max(30).required(),
       carSelections: Joi.array().items(Joi.string())
     }),

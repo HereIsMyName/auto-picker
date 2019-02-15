@@ -121,12 +121,12 @@ class Account extends Component {
                   <p>This will delete all cars from your account</p>
                 </Modal.Content>
                 <Modal.Actions>
-                  <Button negative onClick={this.close}>No</Button>
                   <Button 
                     positive
                     content='Yes' 
                     onClick={this.deleteAllCars} 
                   />
+                <Button negative onClick={this.close}>No</Button>
                 </Modal.Actions>
               </Modal>
               
@@ -153,13 +153,13 @@ class Account extends Component {
                 }
                 </Modal.Content>
                 <Modal.Actions>
-                  <Button type='submit' negative onClick={this.close}>cancel</Button>
                   <Button 
                     positive
                     content='delete' 
                     onClick={this.deleteUser} 
                     form='delForm'
                   />
+                  <Button type='submit' negative onClick={this.close}>cancel</Button>
                 </Modal.Actions>
                 
               </Modal>

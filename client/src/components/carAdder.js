@@ -64,7 +64,7 @@ class CarAdder extends Component {
             <span>class: {car.carClass}</span>
             <img src={require(`../images/${car.carClass}.jpeg`)} alt={car.carClass}/>
             <br />
-            <button onClick={() => this.removeCar(car.model)}>Remove</button>
+            <Button basic color='red' size='mini' onClick={() => this.removeCar(car.model)}>Remove</Button>
           </div>
         )
       })
@@ -83,7 +83,7 @@ class CarAdder extends Component {
           token ?
             <div className=''>
               <span>Save cars to your account</span>
-              <button onClick={() => this.addCars(cars, token)}>Save Cars</button>
+              <Button color='blue' size='mini' onClick={() => this.addCars(cars, token)}>Save Cars</Button>
               <br />
               {
                 // Cars must be saved to state in order to add to db
@@ -119,12 +119,12 @@ class CarAdder extends Component {
             <p>This will remove all cars selected</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button negative onClick={this.close}>No</Button>
             <Button 
               positive
               content='Yes' 
               onClick={this.removeAllCars} 
             />
+            <Button negative onClick={this.close}>No</Button>
           </Modal.Actions>
         </Modal>
         <Button disabled={!cars.length ? true : null} basic color='black' onClick={this.show()}> Remove All</Button>

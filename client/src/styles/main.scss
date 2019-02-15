@@ -83,28 +83,6 @@ a[href]:hover {
 
 
 
-
-.groupItem {
-  margin-top: -10px;
-  margin-bottom: 0;
-  
-  h3:nth-of-type(1) {
-    cursor: pointer;
-    text-decoration: underline;
-    color: blue;
-  }
-}
-
-.results {
-  margin-top: 60px;
-
-  a {
-  text-decoration: underline;
-}
-}
-
-
-
 /* sidebarButton */
 .sidebarButton {
   margin-top: 8px;
@@ -136,19 +114,27 @@ a[href]:hover {
   width: 100%;
 }
 
-#bread, .breadcrumb {
+.breadcrumb {
   position: relative;
-  bottom: 5px;
+  bottom: 10px;
   left: 9%;
 }
 
-.modelBody, .infoBody, .carBody{
-  margin-top: 10px;
+.modelBody, .infoBody, .carBody, .aboutContent{
+  width: 100%;
   padding: 10px;
+  padding-bottom: 25px;
   border-radius: 6px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid black;
   content: '';
   display: table;
   clear: both;
+}
+
+.carBody  {
+  background-color: initial;
+  border: initial;
 }
 
 .infoBody {
@@ -169,16 +155,8 @@ a[href]:hover {
   }
 }
 
-.modelBody, .infoBody, .aboutContent {
-  background-color: rgb(255, 255, 255);
-  border: 1px solid black;
-}
 
 .modelBody {
-  width: 100%;
-  margin-bottom: 0;
-  padding-bottom: 25px;
-
   #modelList  {
     padding: 1px 0;
     margin: 0 auto;
@@ -199,12 +177,17 @@ a[href]:hover {
     font-family: 'PT Sans', sans-serif;
   }
 
+  .aboutContent {
+    padding: 30px;
+    text-align: center;
+  }
+
   button {
     float: right; 
     // margin-left: 7px;
     padding: 1px 10px;
     border-radius: 5px;
-    // min-width: 70px;
+    min-width: 70px;
     font-size: .9em;
     font-weight: bold;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -235,10 +218,14 @@ h1, h4 {
   margin-top: 40px;
 }
 
-.aboutContent {
-  padding: 30px;
-  text-align: center;
+.results {
+  margin-top: 60px;
+
+  a {
+    text-decoration: underline;
+  }
 }
+
 
 .aboutItems p {
   max-width: 220px;
