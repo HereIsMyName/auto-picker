@@ -64,10 +64,10 @@ export const getCars = (carModel) => {
 
   return async dispatch => {
     try {
-      return await axios.get(`http://localhost:5000/cars/${carModel}`)
+      return await axios.get(`http://localhost:5000/cars/${carModel}`, {headers: {'Content-Type': 'application/json'}})
     }
     catch(err) {
-      console.error('err ', err)
+      console.error('error ', err)
     }
   }
 }
@@ -80,7 +80,7 @@ export const getPopupCars = (carModel) => {
       return await axios.get('http://localhost:5000/car-finder')
     }
     catch(err) {
-      console.error('err ', err)
+      console.error('error ', err)
     }
   }
 }
@@ -98,7 +98,7 @@ export const getResource = () => {
       })
     }
     catch(err) {
-      console.error('err ', err)
+      console.error('error ', err)
     }
   }
 }
@@ -159,7 +159,7 @@ export const submitCars = (data) => {
       }) 
     }
     catch(err) {
-      console.error('err ', err)
+      console.error('error ', err)
     } 
   }
 }
@@ -176,7 +176,7 @@ export const deleteCar = (data) => {
       }) 
     }
     catch(err) {
-      console.error('err ', err)
+      console.error('error ', err)
     } 
   }
 }
@@ -192,7 +192,7 @@ export const deleteAllCars = () => {
       }) 
     }
     catch(err) {
-      console.error('err ', err)
+      console.error('error ', err)
     } 
   }
 }
