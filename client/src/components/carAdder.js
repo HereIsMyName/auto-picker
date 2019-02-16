@@ -31,9 +31,9 @@ class CarAdder extends Component {
       this.setState({errMsg: 'No cars to add'})
     }
     else {
-      // State is saved to display # of cars saved to db after removal from state
+      // saves # of cars saved to db after cars removed from state
       (()=>{
-          this.setState({
+        this.setState({
           carLength: this.props.cars.length
         })
       })()

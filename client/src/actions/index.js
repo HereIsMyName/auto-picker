@@ -1,4 +1,5 @@
 import axios from 'axios'
+import baseUrl from './url-config'
 import { 
   SIGN_UP, 
   SIGN_IN, 
@@ -18,7 +19,7 @@ export const signUp = data => {
   
   return async dispatch => {
     try {
-      const res = await axios.post('/signup', data)
+      const res = await axios.post(`${baseUrl}/signup`, data)
 
       dispatch({
         type: SIGN_UP,
@@ -29,7 +30,7 @@ export const signUp = data => {
     } catch(err) {
       dispatch({
         type: AUTH_ERROR,
-        payload: 'Username already in use'
+        payload: 'Username already taken'
       })
     }
   }
@@ -40,7 +41,7 @@ export const signIn = data => {
   
   return async dispatch => {
     try {
-      const res = await axios.post('/signin', data)
+      const res = await axios.post(`${baseUrl}/signin `, data)
 
       dispatch({
         type: SIGN_IN,
@@ -64,7 +65,7 @@ export const getCars = (carModel) => {
 
   return async dispatch => {
     try {
-      return await axios.get(`/cars/${carModel}`)
+      return await axios.get(`${baseUrl}/cars/${carModel}`)
     }
     catch(err) {
       console.error('error ', err)
@@ -73,12 +74,12 @@ export const getCars = (carModel) => {
 }
 
 
-// Gets user's protected content 
+// Gets user's content 
 export const getResource = () => {
 
   return async dispatch => {
     try {
-      const res = await axios.get('/secret')
+      const res = await axios.get(`${baseUrl}/secret`)
       dispatch({
         type: ACCESS_RESOURCE,
         payload: res.data
@@ -107,7 +108,7 @@ export const deleteAccount = (data) => {
 
   return async dispatch => {
     try {
-      const res = await axios.delete('/deleteAccount', {data})
+      const res = await axios.delete(`${baseUrl}/deleteAccount`, {data})
       localStorage.removeItem('WEB_TOKEN')
       dispatch({
         type: SIGN_OUT,
@@ -137,7 +138,7 @@ export const clearError = () => {
 export const submitCars = (data) => {
   return async dispatch => { 
     try {
-      await axios.put('/addcar', data)
+      await axios.put(`${baseUrl}/addcar`, data)
 
       // Cars are removed from store when added to account
       dispatch({
@@ -156,7 +157,7 @@ export const submitCars = (data) => {
 export const deleteCar = (data) => {
   return async dispatch => { 
     try {
-      await axios.delete('/deleteCar', {data})
+      await axios.delete(`${baseUrl}/deleteCar`, {data})
       dispatch({
         type: DELETE_CAR_DB,
         payload: data
@@ -173,7 +174,7 @@ export const deleteCar = (data) => {
 export const deleteAllCars = () => {
   return async dispatch => { 
     try {
-      await axios.delete('/deleteAllCars')
+      await axios.delete(`${baseUrl}/deleteAllCars`)
       dispatch({
         type: DELETE_ALL_CARS_DB
       }) 
@@ -189,7 +190,7 @@ export const getPopupCars = (carModel) => {
 
   return async dispatch => {
     try {
-      return await axios.get('/car-finder')
+      return await axios.get(`${baseUrl}/car-finder`)
     }
     catch(err) {
       console.error('error ', err)

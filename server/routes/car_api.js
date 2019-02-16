@@ -6,12 +6,16 @@ const Vehicle = require('../models/vehicleModel')
 // Get all car models from db
 router.get('/cars/:car', (req, res, next) => {
   Vehicle.find({ carClass: `${req.params.car}` })
-    .exec()
     .then(models => {
-      res.status(200).json(models)
+      if(!models.length) {
+          res.send(404).json('Not Found')
+      }
+      else {
+        res.status(200).json(models)
+      }
     })
     .catch(err => {
-      res.status(500).json({error: err})
+      res.status(500).json({err})
     }
   )
 })
@@ -19,7 +23,6 @@ router.get('/cars/:car', (req, res, next) => {
 // Get car class names for car-finder
 router.get('/car-finder', (req, res, next) => {
   Vehicle.distinct('carClass')
-    .exec()
     .then(models => {
       res.status(200).json( models )
     })

@@ -48,7 +48,7 @@ class CarModels extends Component {
         const { cars, res } = this.props
         const { carModel } = this.props.match.params
 
-        let modelList = models[0].model ? (models.map((carModel, i) => {
+        let modelList =  (models.map((carModel, i) => {
             let dbMatch = res.find(dbcar => dbcar.model === carModel.model)
             let cName = cars.find(cars => cars.model === carModel.model) ? 'picked': ''
                 
@@ -61,8 +61,27 @@ class CarModels extends Component {
                     </div>
                 : null
             )
-        })) : <Loader active inline='centered' content='Loading Cars'/>
+        })) 
             
+        // Check if all cars in category have been save to account
+        const areCars = modelList.filter(item => {
+            return item !== null
+        })
+
+        const body = models[0].model ?
+            <div> 
+                <h2>{carModel}</h2>
+                {
+                    areCars.length ?
+                        <div>
+                            <h3>Select desired vehicles</h3>
+                            {modelList}
+                        </div>
+                    : <h3>"All {carModel} have been saved to your account"</h3>
+                }
+            </div>
+            : <Loader active inline='centered' content='Loading Cars'/>
+
         return (
             <div>
                 <Bread3 title={carModel} />
@@ -71,13 +90,11 @@ class CarModels extends Component {
                     <div>
                         <div className ='modelBody'>
                             <div id='modelList' >
-                                <h2>{carModel}</h2>
-                                <h3>Select desired vehicles</h3>
-                                {modelList}
+                               {body}
                             </div>
                         </div> 
                     </div>
-                    : <h2>Could not retrieve data</h2>
+                    : <h2>404 (Not Found)</h2>
                 }
             </div>
         );

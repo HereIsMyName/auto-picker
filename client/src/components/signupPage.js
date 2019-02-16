@@ -11,7 +11,7 @@ class SignupPage extends Component {
             {
                 !token ?
                 <div>
-                    <h1>Sign Up</h1>
+                    <h1>Create an Account</h1>
                     <SignupForm submit={this.submit} />
                 </div>
                 : <div>

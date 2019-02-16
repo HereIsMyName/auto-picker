@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 
 // Connect to db
 mongoose.connect(config.db, {useNewUrlParser: true})
-.then(() => console.log(`MongoDB Connected to: ${config.db}`))
+.then(() => console.log(`Connected to database: ${config.db}`))
 .catch(err => console.log(`Problem connecting to database: ${config.db} `, err))
 
 mongoose.Promise = global.Promise
